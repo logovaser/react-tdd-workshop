@@ -25,6 +25,30 @@ test('should show "O" after second player clicks', () => {
   expect(driver.getACellAt(1)).toBe('O');
 });
 
+test(`couldn't press on empty cell`, () => {
+  const p1Name = 'Yaniv';
+  const p2Name = 'Computer';
+  driver.render(<App />);
+  driver.newGame(p1Name, p2Name);
+  driver.clickACellAt(0);
+  driver.clickACellAt(0);
+  expect(driver.getACellAt(0)).toBe('X');
+});
+
+test(`it's a tie!`, () => {
+    const p1Name = 'Yaniv';
+    const p2Name = 'Computer';
+    driver.render(<App />);
+    driver.newGame(p1Name, p2Name);
+    driver.clickACellAt(0);
+    driver.clickACellAt(0);
+    driver.clickACellAt(5);
+    driver.clickACellAt(1);
+    driver.clickACellAt(7);
+    driver.clickACellAt(2);
+    expect(driver.getWinnerMessage()).toBe(`noone won!`);
+});
+
 test('"O" should win the game', () => {
   const p1Name = 'Yaniv';
   const p2Name = 'Computer';
